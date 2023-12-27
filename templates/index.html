@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='randy.jpg') }}" type="image/x-ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="My Portfolio" />
+    <meta property="og:description" content="Summary of the contents of the page you are viewing" />
+    <meta property="og:image" content="{{ url_for('static', filename='randy.jpg') }}" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    <title>My Portofolio</title>
+    <Script>
+        function send() {
+            let name = $('#name').val();
+            let email = $('#email').val();
+            let messages = $('#pesan').val();
+
+            // Validasi input
+            if (name === '' || email === '' || messages === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Mohon lengkapi semua kolom input!',
+                });
+                return;
+            }
+
+            // Kirim data jika input sudah valid
+            $.ajax({
+                type: "POST",
+                url: "/contact",
+                data: {
+                    name_give: name,
+                    email_give: email,
+                    messages_give: messages
+                },
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: response['msg'],
+                    }).then(() => {
+                        // Reload halaman setelah menekan tombol OK pada SweetAlert
+                        window.location.reload();
+                    });
+                }
+            });
+        }
+    </Script>
+</head>
+
+<body>
+    <section id="home" data-aos="fade-down">
+        <div class="hero">
+            <nav class="fixed-top">
+                <h2 class="logo">Porto<span>folio</span></h2>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#abt">About</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="content">
+                <h4>Hello! Im</h4>
+                <h1>Muhamad <span>Randy</span> Aranda</h1>
+                <h4>Mahasiswa</h4>
+                <h3>Politeknik LP3I Jakarta</h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="abt" data-aos="fade-up-right">
+        <div class="about">
+            <div class="main">
+                <img src="{{ url_for('static', filename='img/randy.jpg')}}" alt="">
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <h5>Mahasiswa <span>Informatika</span></h5>
+                    <p>Saya adalah seorang mahasiswa di salah satu Perguruan Tinggi Swasta Di Jakarta.
+                        Saya adalah mahasiswa Informatika yang sangat bersemangat tentang pengembangan web.
+                        Dengan latar belakang SMK jurusan Teknik Komputer Jaringan (TKJ), saya memiliki dasar yang kuat
+                        dalam pemrograman dan pengembangan Web.
+                        Saya berusaha untuk terus memperdalam pengetahuan dan keterampilan saya dalam dunia web
+                        development.
+                    </p>
+                    <button type="button">Let's Talk</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="service" data-aos="fade-up">
+        <div class="title">
+            <h2>Hard Skil</h2>
+        </div>
+        <div class="box">
+            <div class="card">
+                <i class="fa-brands fa-figma"></i>
+                <h5>UI/UX</h5>
+                <div class="pra">
+                    <p style="text-align: center;"></p>
+                    <a href="#" class="button">Read More</a>
+                </div>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-desktop"></i>
+                <h5>Web Development</h5>
+                <div class="pra">
+                    <p style="text-align: center;"></p>
+                    <a href="#" class="button">Read More</a>
+                </div>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-mobile"></i>
+                <h5>Mobile Development</h5>
+                <div class="pra">
+                    <p style="text-align: center;"></p>
+                    <a href="#" class="button">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="portfolio" data-aos="flip-up">
+        <div class="porto">
+            <div class="title">
+                <h2>Portofolio</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card-2">
+                        <a href="https://coffeshopproject.glitch.me/" target="_blank" rel="noopener noreferrer">
+                            <img src="{{ url_for('static', filename='img/img1.jpeg')}}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-text">Web Coffe shop
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card-2">
+                        <a href="https://puncaknusantara-project.glitch.me/" target="_blank">
+                        <img src="{{ url_for('static', filename='img/img4.png')}}" class="card-img-top" alt="...">
+                    </a>
+                        <div class="card-body">
+                            <h5>Web Puncak Nusantara</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card-2">
+                        <a href="https://www.figma.com/file/FR5wPHb6DNCceJTxnfAHcZ/Untitled?node-id=0%3A1&t=krMwrQFGuLIcSTvI-1" target="_blank">
+                        <img src="{{ url_for('static', filename='img/img3.jpeg')}}" class="card-img-top" alt="...">
+                    </a>
+                        <div class="card-body">
+                            <h5>UI/UX Sistem informasi ERP </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-aos="flip-left">
+        <section id="contact"></section>
+        <div class="kontak-saya">
+            <p>Lihat Lebih Jauh tentang saya</p>
+            <a href="https://wa.me/085770878312" target="_blank" class="button-dua">Hubungi Saya</a>
+        </div>
+
+        <div data-aos="flip-up">
+            <div class="row text-center mb-3">
+                <div class="col">
+                    <h2 class="text-dark">Contact Me</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form>
+                        <div class="mb-3">
+                            <label for="Name" class="form-label text-dark">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="name">
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label text-dark">Email</label>
+                            <input type="email" class="form-control" id="email" aria-describedby="email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="pesan" class="form-label text-dark">Pesan</label>
+                            <textarea class="form-control" id="pesan" rows="3"></textarea>
+                        </div>
+
+                        <button onclick="send()" type="submit" class="button mb-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer data-aos="zoom-in-up">
+        <p>Untuk lebih mengenal tentang saya hubungi</p>
+        <div class="sosial">
+            <a href="https://github.com/MuhamadRandy" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="https://wa.me/085770878312" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/randyarnd/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <p class="end">@Copyright Muhamad Randy Aranda</p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- ... (kode lainnya) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>
